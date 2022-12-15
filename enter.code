@@ -1,0 +1,187 @@
+main::[]->[]:
+{	
+	entrar: Int;
+
+	[$entrar != 5]@{
+		show: "                     Menu";
+		show: " 1 SACAR EL NUMERO MENOR Y MAYOR DE UN ARREGLO ";
+		show: " 2 ARREGLO ORDENADO ";
+		show: " 3 MEDIA MEDIANA Y MODA ";
+		show: " 4 ESTRUCTURAS ";
+		show: " 5 SALIR ";
+		show: "";	
+		show: " ELIGE UNA OPCION: ";
+		show: "";
+		load: entrar;
+		[$entrar==1]?{
+			show: "";
+			show: "   BIENVENIDO AL PROGRAMA 1";
+			show: "   MAYOR Y MENOR";
+			f: Int;
+			i: Int;
+			num: Int;
+			Serie: Int[4];
+			[i:0|$i<5|i:$i+1]@{
+				show: "Dame un numero: ";
+				load: num;
+				Serie:[$i,$num];
+			}
+			min: Int;
+			min: $Serie[0];
+			[f:0| $f<5| f:$f+1]@{
+				[$Serie[$f] < $min]?{
+					min: $Serie[$f];
+				} 
+			}
+			show: "El numero menor es: ", $min, "";
+			may: Int;
+			may: $Serie[0];
+			[f:0| $f<5| f:$f+1]@{
+				[$Serie[$f] > $may]?{
+					may: $Serie[$f];
+				}
+			}
+			show: "El numero Mayor es: ", $may, "";
+			show: "";
+		}[$entrar == 2]?{
+			show: "";
+			show: "   BIENVENIDO AL PROGRAMA 2";
+			show: "   ARREGLO ORDENADO";
+			Ord: Int[9];
+			i: Int;
+			j: Int;
+			k: Int;
+			num: Int;
+			aux: Int;
+			[i:0| $i<10| i:$i+1]@{
+				show: "Dame un numero: ";
+				load: num;
+				Ord:[$i,$num];
+			}
+			[j:0| $j<10| j:$j+1]@{
+				[k:0| $k<10| k:$k+1]@{
+					[$Ord[$k] > $Ord[$k+1]]?{
+						aux: $Ord[$k];
+						Ord[$k]: $Ord[$k+1];
+						Ord[$k+1]: $aux;
+					}
+				}
+			}
+			show:"";
+			show: "El arreglo ordenado seria: ";
+			show:"";
+			[j:0| $j<10| j:$j+1]@{
+				show: $Ord[$j];
+			}
+			show:"";
+		}[$entrar == 3]?{
+			show:"";
+			show: "   BIENVENIDO AL PROGRAMA 3";
+			show: "   MEDIA MEDIANA Y MODA";			
+			Num: Int;
+			Media: Int;
+			Mediana: Int;
+			Moda: Int;
+			Numero: Int;
+			Pos: Int;
+			Arreglo: Int[9];
+			Auxiliar: Int[9];
+			i: Int;
+			j: Int;
+			[i:0| $i<10| i:$i+1]@{
+					show: "Dame un numero: ";
+					load: Num;
+					Arreglo:[$i,$Num];
+			}
+
+			[i:0| $i<10| i:$i+1]@{
+					Auxiliar[$i]: 0;
+			}
+
+			[i:0| $i<10| i:$i+1]@{
+					Numero: $Arreglo[$i];
+					Pos: $i;
+					[j:0| $j<10| j:$j+1]@{
+					[$Arreglo[$j] == $Numero]?{
+						Auxiliar[$Pos]+:;
+					}
+				}
+			}
+			Mayor1: Int;
+			PosMayor: Int;
+			PosMayor: 0;
+			Mayor1: $Auxiliar[0];
+			[i:0| $i<10| i:$i+1]@{
+				[$Auxiliar[$i] > $Mayor1]?{
+						PosMayor: $i;
+						Mayor1: $Auxiliar[$i];
+					}
+			}
+			Moda: $Arreglo[$PosMayor];
+			Size: Int;
+			Size: 10;
+			[i:1| $i<10| i:$i+1]@{
+				[j:0| $j<=8| j:$j+1]@{
+					[$Arreglo[$j] > $Arreglo[$j+1]]?{
+						temp: Int;
+						Num: Int;
+						Num: $j+1;
+						Num2: Int;
+						Num2: $Arreglo[$j+1];
+						temp: $Arreglo[$j];
+						Arreglo[$j]: $Num2;
+						Arreglo[$Num]: $temp;
+					}
+				}
+			}
+			show: "La serie de numeros es: ";
+			[i:0| $i<10| i:$i+1]@{
+				show: $Arreglo[$i];
+			}
+			
+			Suma: Int;
+			Suma: 0;
+			[i:0| $i<10| i:$i+1]@{
+				Suma: $Suma+$Arreglo[$i];
+			}
+			
+			Media: $Suma/10;
+			show: "La Media es: ", $Media, "";
+			show: "La Moda es: ", $Moda, "";
+	
+			Mediana1: Int;
+			MedianaReal: Int;
+			[$Size%2 != 0]?{
+				num: Int;
+				num: $Size/2;
+				Mediana: $Arreglo[$num];
+				show: "El valor de la Mediana es: ", $Mediana, "";      
+			}|{
+				num: Int;
+				num2: Int;
+				Mediana2: Int;
+				num: $Size/2;
+				num2: $Size/2;
+				num2: $num2-1;
+				Mediana: $Arreglo[$num];
+				Mediana2: $Arreglo[$num2];
+				Mediana1: $Mediana+$Mediana2;
+				MedianaReal: $Mediana1/2;
+				show: "El valor de la Mediana es: ", $MedianaReal, "";
+			}
+			show:"";
+
+		}[$entrar == 4]?{
+			show: "No se pudo profe";
+		}[$entrar == 5]?{
+			show: "";
+			show: "                    ADIOS";
+			show: "";
+		}|{
+			show: "";
+			show: "            OPCION FUERA DEL RANGO";
+			show: "";
+		}
+	}
+	
+}	
